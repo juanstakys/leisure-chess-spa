@@ -1,3 +1,13 @@
+<template>
+    <h1>Chess Now!</h1>
+    <component
+        :is="currentView"
+        :gameId="gameId"
+        @create="onCreate"
+        @join="onJoin"
+    />
+</template>
+
 <script setup>
 import { ref, computed } from "vue";
 import Home from "./Home.vue";
@@ -11,6 +21,8 @@ const routes = {
 
 const currentPath = ref(window.location.hash);
 
+let gameId;
+
 window.addEventListener("hashchange", () => {
     currentPath.value = window.location.hash;
 });
@@ -18,11 +30,17 @@ window.addEventListener("hashchange", () => {
 const currentView = computed(() => {
     return routes[currentPath.value.slice(1) || "/"] || NotFound;
 });
-</script>
 
-<template>
-    <h1>Chess Now!</h1>
-    <component :is="currentView" />
-</template>
+async function onCreate() {
+    const response = await fetch("http://localhost:3000");
+    gameId = await response.text();
+    window.location.hash = "/play";
+}
+
+async function onJoin(gId) {
+    gameId = gId;
+    window.location.hash = "/play";
+}
+</script>
 
 <style scoped></style>

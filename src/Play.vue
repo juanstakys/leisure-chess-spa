@@ -1,16 +1,14 @@
-<script setup>
-import { TheChessboard } from "vue3-chessboard";
-
-import "vue3-chessboard/style.css";
-</script>
-
 <template>
     <div>
         <main>
             <!-- Layout container: left = board, right = sidebar -->
             <section class="board">
+                <p>game ID: {{ gameId }}</p>
                 <!-- Chessboard area -->
-                <the-chessboard />
+                <the-chessboard
+                    @board-created="(api) => (board = api)"
+                    @move="handleMove"
+                />
             </section>
 
             <section class="sidebar" aria-label="Game sidebar">
@@ -39,6 +37,35 @@ import "vue3-chessboard/style.css";
         </main>
     </div>
 </template>
+
+<script setup>
+import { onMounted } from "vue";
+import { TheChessboard } from "vue3-chessboard";
+import "vue3-chessboard/style.css";
+
+let ws;
+let board;
+
+const props = defineProps({
+    gameId: String,
+});
+
+function handleMove({ san }) {
+    ws.send(`${props.gameId} move ${san}`);
+}
+
+onMounted(() => {
+    ws = new WebSocket("ws://localhost:3001");
+    ws.onopen = () => {
+        ws.send(`${props.gameId} join`);
+    };
+    ws.onmessage = ({ data }) => {
+        console.log(data);
+        // TODO: allow resign and draw offering
+        board.move(data);
+    };
+});
+</script>
 
 <style scoped>
 main {

@@ -27,7 +27,13 @@
 
             <div aria-hidden="true">or</div>
 
-            <a href="#/play"> CREATE NEW GAME </a>
+            <button
+                class="btn primary"
+                @click="onCreate"
+                title="Create new game"
+            >
+                CREATE NEW GAME
+            </button>
         </section>
     </main>
 </template>
@@ -41,10 +47,15 @@ const canJoin = computed(() => gameId.value.trim().length > 0);
 
 const emit = defineEmits<{
     (e: "join", id: string): void;
+    (e: "create"): void;
 }>();
 
 function onJoin() {
     if (!canJoin.value) return;
     emit("join", gameId.value.trim());
+}
+
+function onCreate() {
+    emit("create");
 }
 </script>

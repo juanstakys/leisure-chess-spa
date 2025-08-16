@@ -1,21 +1,28 @@
 <script setup>
-import LoginButton from "./components/LoginButton.vue";
-import LogoutButton from "./components/LogoutButton.vue";
-import { TheChessboard } from "vue3-chessboard";
-import "vue3-chessboard/style.css";
-import { useAuth0 } from "@auth0/auth0-vue";
+import { ref, computed } from "vue";
+import Home from "./Home.vue";
+import Play from "./Play.vue";
+import NotFound from "./NotFound.vue";
 
-const { user, isAuthenticated } = useAuth0();
+const routes = {
+    "/": Home,
+    "/play": Play,
+};
+
+const currentPath = ref(window.location.hash);
+
+window.addEventListener("hashchange", () => {
+    currentPath.value = window.location.hash;
+});
+
+const currentView = computed(() => {
+    return routes[currentPath.value.slice(1) || "/"] || NotFound;
+});
 </script>
 
 <template>
-    <div v-if="isAuthenticated">
-      <img :src="user.picture" alt="User picture">
-      <p>{{ user.name }}</p>
-      <logout-button />
-    </div>
-    <login-button v-else />
-    <the-chessboard />
+    <h1>Chess Now!</h1>
+    <component :is="currentView" />
 </template>
 
 <style scoped></style>

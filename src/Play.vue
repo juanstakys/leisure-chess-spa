@@ -3,8 +3,8 @@
         <main>
             <!-- Layout container: left = board, right = sidebar -->
             <section class="board">
-                <p>game ID: {{ gameId }}</p>
-                <p>Playing as {{ playerColor }}</p>
+                <p>game ID</p>
+                <p class="gameId">{{ gameId }}</p>
                 <!-- Chessboard area -->
                 <the-chessboard
                     @board-created="(api) => (board = api)"
@@ -56,5 +56,15 @@ onMounted(() => {
 <style scoped>
 main {
     display: flex;
+    user-select: none;
+}
+.gameId {
+    /* TODO: De-hardcode colors */
+    user-select: text;
+    background-color: #f0f0f0;
+    color: #333;
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 1rem;
 }
 </style>

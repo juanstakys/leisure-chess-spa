@@ -18,9 +18,9 @@ const gameId = ref("");
 const playerColor = ref("");
 let ws;
 
-async function onCreate(ev) {
-    console.log(ev);
-    const response = await fetch("http://localhost:3000");
+async function onCreate(color) {
+    console.log(color);
+    const response = await fetch(`http://localhost:3000/${color}`);
     gameId.value = await response.text();
     console.log("gameId.value:", gameId.value);
     ws = new WebSocket("ws://localhost:3001");

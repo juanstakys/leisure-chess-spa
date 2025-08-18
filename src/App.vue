@@ -20,10 +20,12 @@ let ws;
 
 async function onCreate(color) {
     console.log(color);
-    const response = await fetch(`http://localhost:3000/${color}`);
+    const response = await fetch(
+        `http://${import.meta.env.VITE_SERVER_IP}:3000/${color}`,
+    );
     gameId.value = await response.text();
     console.log("gameId.value:", gameId.value);
-    ws = new WebSocket("ws://localhost:3001");
+    ws = new WebSocket(`ws://${import.meta.env.VITE_SERVER_IP}:3001`);
     ws.onopen = () => {
         ws.send(`${gameId.value} join`);
     };
@@ -35,13 +37,14 @@ async function onCreate(color) {
 
 async function onJoin(gId) {
     console.log("gameId.value:", gameId.value);
-    ws = new WebSocket("ws://localhost:3001");
+    ws = new WebSocket(`ws://${import.meta.env.VITE_SERVER_IP}:3001`);
     ws.onopen = () => {
         ws.send(`${gameId.value} join`);
     };
     ws.onmessage = (event) => {
         console.log("message:", event.data);
         playerColor.value = event.data;
+        // TODO: Hande game not found
     };
     gameId.value = gId;
 }

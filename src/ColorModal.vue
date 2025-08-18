@@ -1,16 +1,13 @@
 <template>
-    <button @click="open = true">CREATE NEW GAME</button>
-
-    <Teleport to="body">
-        <div v-if="open" class="modal">
-            <p>Choose color</p>
-            <div>
-                <button @click="handleClick" value="random">Random</button>
-                <button @click="handleClick" value="white">White</button>
-                <button @click="handleClick" value="black">Black</button>
-            </div>
+    <!-- TODO: Rename this as it's not a modal -->
+    <div class="modal">
+        <p>Create game as</p>
+        <div>
+            <button @click="handleClick" value="random">Random</button>
+            <button @click="handleClick" value="white">White</button>
+            <button @click="handleClick" value="black">Black</button>
         </div>
-    </Teleport>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -34,12 +31,7 @@ const open = ref(false);
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: fixed;
-    z-index: 999;
-    top: 20%;
-    left: 50%;
     width: 300px;
-    margin-left: -150px;
     border-color: #ccc;
     border-style: solid;
     border-width: 1px;

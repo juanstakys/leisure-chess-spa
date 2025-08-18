@@ -27,19 +27,14 @@
 
             <div aria-hidden="true">or</div>
 
-            <button
-                class="btn primary"
-                @click="onCreate"
-                title="Create new game"
-            >
-                CREATE NEW GAME
-            </button>
+            <ColorModal @color-selected="createGame" />
         </section>
     </main>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import ColorModal from "./ColorModal.vue";
 
 const gameId = ref("");
 
@@ -55,7 +50,7 @@ function onJoin() {
     emit("join", gameId.value.trim());
 }
 
-function onCreate() {
-    emit("create");
+function createGame(color) {
+    emit("create", color);
 }
 </script>

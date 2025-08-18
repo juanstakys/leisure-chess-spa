@@ -18,7 +18,8 @@ const gameId = ref("");
 const playerColor = ref("");
 let ws;
 
-async function onCreate() {
+async function onCreate(ev) {
+    console.log(ev);
     const response = await fetch("http://localhost:3000");
     gameId.value = await response.text();
     console.log("gameId.value:", gameId.value);

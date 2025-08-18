@@ -1,0 +1,53 @@
+<template>
+    <button @click="open = true">CREATE NEW GAME</button>
+
+    <Teleport to="body">
+        <div v-if="open" class="modal">
+            <p>Choose color</p>
+            <div>
+                <button @click="handleClick" value="random">Random</button>
+                <button @click="handleClick" value="white">White</button>
+                <button @click="handleClick" value="black">Black</button>
+            </div>
+        </div>
+    </Teleport>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+
+const emit = defineEmits<{
+    (e: "color-selected", color: string): void;
+}>();
+
+const handleClick = (event) => {
+    const value = event.target.value;
+    emit("color-selected", value);
+    // Handle the color selection logic here
+};
+
+const open = ref(false);
+</script>
+
+<style scoped>
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    z-index: 999;
+    top: 20%;
+    left: 50%;
+    width: 300px;
+    margin-left: -150px;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: #555;
+}
+.modal div button {
+    margin: 5px;
+}
+</style>

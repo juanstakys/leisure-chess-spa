@@ -8,7 +8,6 @@
         v-else-if="playerColor"
     />
 </template>
-S
 
 <script setup>
 import { ref } from "vue";

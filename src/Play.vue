@@ -4,6 +4,7 @@
             <!-- Layout container: left = board, right = sidebar -->
             <section class="board">
                 <p>game ID</p>
+                <!-- TODO: add copy button besides -->
                 <p class="gameId">{{ gameId }}</p>
                 <!-- Chessboard area -->
                 <the-chessboard

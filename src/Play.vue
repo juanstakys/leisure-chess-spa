@@ -38,8 +38,11 @@ const boardConfig = {
     },
 };
 
-function handleMove({ san }) {
-    props.ws.send(`${props.gameId} move ${san}`);
+function handleMove({ color, san }) {
+    const formattedPlayerColor = props.playerColor == "white" ? "w" : "b";
+    if (formattedPlayerColor == color) {
+        props.ws.send(`${props.gameId} move ${san}`);
+    }
 }
 
 onMounted(() => {

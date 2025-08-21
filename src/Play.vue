@@ -73,5 +73,6 @@ main {
 }
 .board {
     margin-bottom: 1rem;
+    width: 90vw;
 }
 </style>

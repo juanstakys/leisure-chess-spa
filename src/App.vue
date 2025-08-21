@@ -1,5 +1,4 @@
 <template>
-    <h1>Chess Now!</h1>
     <Home @create="onCreate" @join="onJoin" v-if="!gameId" />
     <Play
         :gameId="gameId"

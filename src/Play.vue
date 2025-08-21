@@ -2,11 +2,11 @@
     <div>
         <main>
             <!-- Layout container: left = board, right = sidebar -->
+            <p>game ID</p>
+            <!-- TODO: add copy button besides -->
+            <p class="gameId">{{ gameId }}</p>
+            <!-- Chessboard area -->
             <section class="board">
-                <p>game ID</p>
-                <!-- TODO: add copy button besides -->
-                <p class="gameId">{{ gameId }}</p>
-                <!-- Chessboard area -->
                 <the-chessboard
                     @board-created="(api) => (board = api)"
                     @move="handleMove"
@@ -56,7 +56,6 @@ onMounted(() => {
 
 <style scoped>
 main {
-    display: flex;
     user-select: none;
 }
 .gameId {
@@ -66,6 +65,10 @@ main {
     color: #333;
     width: fit-content;
     margin: auto;
+    margin-bottom: 1rem;
+}
+.board {
+    width: 85vw;
     margin-bottom: 1rem;
 }
 </style>

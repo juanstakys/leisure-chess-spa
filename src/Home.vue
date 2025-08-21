@@ -1,5 +1,6 @@
 <template>
     <main>
+        <h1>Chess Now!</h1>
         <section role="region" aria-label="Chess Now landing">
             <form @submit.prevent="onJoin">
                 <label for="gameId">join:</label>

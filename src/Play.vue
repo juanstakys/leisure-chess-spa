@@ -2,9 +2,12 @@
     <div>
         <main>
             <!-- Layout container: left = board, right = sidebar -->
-            <p>game ID</p>
             <!-- TODO: add copy button besides -->
-            <p class="gameId">{{ gameId }}</p>
+            <p>
+                <span>game ID: </span>
+                <span class="gameId">{{ gameId }}</span>
+                <a>click to copy</a>
+            </p>
             <!-- Chessboard area -->
             <section class="board">
                 <the-chessboard
@@ -64,11 +67,11 @@ main {
     background-color: #f0f0f0;
     color: #333;
     width: fit-content;
-    margin: auto;
-    margin-bottom: 1rem;
+    margin: 0.5rem;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
 }
 .board {
-    width: 85vw;
     margin-bottom: 1rem;
 }
 </style>

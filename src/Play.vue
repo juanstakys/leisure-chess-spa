@@ -16,17 +16,23 @@
                     :player-color="playerColor"
                     :board-config="boardConfig"
                 />
+                <dialog>
+                    <button autofocus>Close</button>
+                    <p>{{ gameOverMsg }}</p>
+                </dialog>
             </section>
         </main>
     </div>
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref } from "vue";
 import { TheChessboard } from "vue3-chessboard";
 import "vue3-chessboard/style.css";
 
 let board;
+
+const gameOverMsg = ref("");
 
 const props = defineProps({
     gameId: String,
@@ -51,9 +57,21 @@ function handleMove({ color, san }) {
 
 onMounted(() => {
     props.ws.onmessage = ({ data }) => {
-        console.log("move:", data);
+        if (data.startsWith("Game over:")) {
+            gameOverMsg.value = data;
+            dialog.showModal();
+            return;
+        }
         board.move(data);
     };
+    const dialog = document.querySelector("dialog");
+    const showButton = document.querySelector("dialog + button");
+    const closeButton = document.querySelector("dialog button");
+
+    // "Close" button closes the dialog
+    closeButton.addEventListener("click", () => {
+        dialog.close();
+    });
 });
 </script>
 
@@ -74,5 +92,9 @@ main {
 .board {
     margin-bottom: 1rem;
     width: 90vw;
+}
+::backdrop {
+    background-color: black;
+    opacity: 0.75;
 }
 </style>

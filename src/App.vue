@@ -5,6 +5,7 @@
         :player-color="playerColor"
         :ws="ws"
         v-else-if="playerColor"
+        @close="gameId = ''"
     />
 </template>
 

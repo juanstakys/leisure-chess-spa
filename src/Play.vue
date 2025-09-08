@@ -17,15 +17,15 @@
                     :board-config="boardConfig"
                 />
                 <dialog>
-                    <button autofocus>Close</button>
                     <p>{{ gameOverMsg }}</p>
+                    <button autofocus>Close</button>
                 </dialog>
             </section>
         </main>
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { TheChessboard } from "vue3-chessboard";
 import "vue3-chessboard/style.css";
@@ -39,6 +39,10 @@ const props = defineProps({
     playerColor: String,
     ws: WebSocket,
 });
+
+const emit = defineEmits<{
+    (e: "close"): void;
+}>();
 
 const boardConfig = {
     orientation: props.playerColor,
@@ -71,6 +75,7 @@ onMounted(() => {
     // "Close" button closes the dialog
     closeButton.addEventListener("click", () => {
         dialog.close();
+        emit("close");
     });
 });
 </script>

@@ -25,7 +25,7 @@ async function onCreate(color) {
     );
     gameId.value = await response.text();
     console.log("gameId.value:", gameId.value);
-    ws = new WebSocket(`ws://${import.meta.env.VITE_SERVER_IP}:3001`);
+    ws = new WebSocket(`ws://${import.meta.env.VITE_SERVER_IP}:3000`);
     ws.onopen = () => {
         ws.send(`${gameId.value} join`);
     };
@@ -37,7 +37,7 @@ async function onCreate(color) {
 
 async function onJoin(gId) {
     console.log("gameId.value:", gameId.value);
-    ws = new WebSocket(`ws://${import.meta.env.VITE_SERVER_IP}:3001`);
+    ws = new WebSocket(`ws://${import.meta.env.VITE_SERVER_IP}:3000`);
     ws.onopen = () => {
         ws.send(`${gameId.value} join`);
     };
